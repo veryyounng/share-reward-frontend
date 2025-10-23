@@ -1,69 +1,47 @@
-# React + TypeScript + Vite
+## 🛍️ Share & Reward (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Kafka 기반 상품 공유 리워드 시스템의 프론트엔드입니다.
+React + Vite + Tailwind로 제작되었으며, 공유 생성 → 클릭 → 실시간 리워드 스트림을 시각화합니다.
 
-Currently, two official plugins are available:
+## ⚙️ 기술 스택
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Frontend: React, TypeScript, Vite, TailwindCSS
 
-## Expanding the ESLint configuration
+Backend: Spring Boot (Kafka 이벤트 기반)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Infra: Docker, AWS EC2
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+실시간 통신: SSE (Server-Sent Events)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🚀 실행 방법
+```
+# 설치
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 개발 서버 실행
+npm run dev
+```
+## 🧩 주요 기능
+
+상품 공유: 공유 생성 시 share.created.v1 이벤트 트리거
+
+클릭 시뮬레이션: 클릭 요청 → 리워드 발생
+
+실시간 리워드: SSE로 보상 이벤트 스트리밍
+
+요약 / 리더보드: API 또는 더미 데이터로 표시
+
+## 🧱 구조
+```
+src/
+ ├── App.tsx          # 전체 흐름 및 API/SSE 제어
+ ├── components/
+ │   ├── ShopView.tsx     # 공유/클릭
+ │   ├── MyPageView.tsx   # 스트림/리더보드
+ │   └── Sidebar.tsx      # 탭/유저 설정
+ └── types/              # API/이벤트 타입 정의
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+	
